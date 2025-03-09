@@ -30,10 +30,13 @@ class GameScreenViewState (
 
     fun resultUpdate(
         isDisplayWin: Boolean,
-        numberRangeMessage: String
+        numberRangeMessage: String,
+        createRandomNumber: ()-> Int
     ){
         binding.value = binding.value.copy(
+            randomNumber =  if(isDisplayWin) createRandomNumber.invoke() else binding.value.randomNumber,
             isDisplayWin = isDisplayWin,
+            isDisplayWrong = !isDisplayWin,
             numberRangeMessage = numberRangeMessage
         )
     }

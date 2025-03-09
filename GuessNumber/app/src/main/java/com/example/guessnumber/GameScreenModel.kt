@@ -9,7 +9,7 @@ class GameScreenModel: ViewModel() {
 
 
         val state = GameScreenViewState(
-            randomNum = (1..10).random(),
+            randomNum = getRandomNumberCorrect(),
             isDisplayWin = false,
             isDisplayWrong = false,
             inputData = "",
@@ -18,19 +18,27 @@ class GameScreenModel: ViewModel() {
 
     )
 
+
+
+
+    private fun getRandomNumberCorrect() = (1..10).random()
+
     private fun onValueChange(newInput: String) {
         if (newInput.all { letter -> letter.isDigit()} && newInput .length <= 2){
             state.binding.value = state.binding.value.copy(
-                inputData = newInput
+                inputData = newInput,
+                isDisplayWin = false,
+                isDisplayWrong = false
             )
         }
     }
 
     private fun checkResult() {
+        if(state.binding.value.inputData.isEmpty()) return
         val inputNumber = Integer.parseInt(state.binding.value.inputData)
         val targetNumber = state.binding.value.randomNumber
         val isDisplayWin = inputNumber == targetNumber
-        state.resultUpdate(isDisplayWin, if(isDisplayWin) "You got it" else "You failed")
+        state.resultUpdate(isDisplayWin, if(isDisplayWin) "You got it" else "You failed", ::getRandomNumberCorrect)
 
     }
 }

@@ -64,15 +64,11 @@ fun GameScreen(binding: GameScreenViewBinding) {
                 .height(300.dp)
                 .padding(horizontal = 16.dp)
         ) {
-            var inputData by remember {
-                mutableStateOf("")
-            }
 
             TextField(
                 textStyle = TextStyle(textAlign = TextAlign.Center),
                 modifier = Modifier
                     .width(250.dp)
-                    .height(40.dp)
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 32.dp),
                 value = binding.inputData,
@@ -82,7 +78,7 @@ fun GameScreen(binding: GameScreenViewBinding) {
                 },
                 placeholder = {
                     Text(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.fillMaxWidth(),
                         text = "Enter your guess",
                         textAlign = TextAlign.Center
                     )
@@ -103,7 +99,7 @@ fun GameScreen(binding: GameScreenViewBinding) {
             )
 
             Button(
-                onClick = {isDisplay = true},
+                onClick = binding.checkResult,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {
                 Text(text = "Guess")
